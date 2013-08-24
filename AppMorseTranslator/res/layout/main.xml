@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+    >
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Start Recording"
+        android:id="@+id/strtRecButton"
+        android:onClick="startRecording"/>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Stop Recording"
+        android:id="@+id/stpRecButton"
+        android:onClick="stopRecording"/>
+
+    <view
+        class="tim.matura.app.GraphWidget"
+        android:id="@+id/soundGraph"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        />
+</LinearLayout>
+

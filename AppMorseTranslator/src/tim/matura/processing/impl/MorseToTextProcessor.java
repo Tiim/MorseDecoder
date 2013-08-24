@@ -12,12 +12,12 @@ import tim.matura.processing.ITextReceiver;
  */
 public class MorseToTextProcessor implements IMorseReceiver {
 
-    private final ITextReceiver receiver;
+    private final ITextReceiver[] receivers;
     private MorseSequence morseSequence = new MorseSequence();
 
-    public MorseToTextProcessor(ITextReceiver receiver) {
+    public MorseToTextProcessor(ITextReceiver... receivers) {
 
-        this.receiver = receiver;
+        this.receivers = receivers;
     }
 
     @Override
@@ -25,7 +25,9 @@ public class MorseToTextProcessor implements IMorseReceiver {
         morseSequence.append(ch);
 
         if (ch == MorseCharacter.PAUSE_SHORT) {
-            receiver.setText(new Translator(morseSequence).getString());
+            for (ITextReceiver rec : receivers) {
+                rec.setText(new Translator(morseSequence).getString());
+            }
             morseSequence = new MorseSequence();
         }
     }

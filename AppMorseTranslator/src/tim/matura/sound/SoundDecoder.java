@@ -3,9 +3,8 @@ package tim.matura.sound;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
-import android.util.Log;
-import tim.matura.app.AppMorseTranslator.util.Ref;
-import tim.matura.processing.ISoundReceiver;
+import tim.matura.processing.ISampleReceiver;
+import tim.matura.utils.Logging;
 
 /**
  * @author Tiim
@@ -14,55 +13,52 @@ import tim.matura.processing.ISoundReceiver;
 public class SoundDecoder implements Runnable {
 
     private final int[] FORMATS = {8000, 11025, 22050, 44100};
-    private final int chunkLenght;
+    private final int chunkLength;
 
-    private ISoundReceiver receiver;
+    private ISampleReceiver[] receivers;
 
     private boolean finished = false;
 
-    public SoundDecoder(int chunkLenght) {
-        this.chunkLenght = chunkLenght;
+    public SoundDecoder(int chunkLength) {
+        this.chunkLength = chunkLength;
     }
 
-    public void setSoundReceiver(ISoundReceiver receiver) {
-        this.receiver = receiver;
+    public void setSampleReceiver(ISampleReceiver... receivers) {
+        this.receivers = receivers;
     }
 
     @Override
     public void run() {
         int sleepTime = 10;
-        short[] b = new short[chunkLenght];
+        short[] b = new short[chunkLength];
         AudioRecord record = findAudioRecord(FORMATS);
         record.startRecording();
-        int sum = 0;
-        int counter = 0;
+        for (ISampleReceiver rec : receivers) {
+            rec.setSamplePerSecond(record.getSampleRate());
+        }
         while (!finished) {
 
-            int result = record.read(b, 0, chunkLenght);
+            int result = record.read(b, 0, chunkLength);
             if (result == AudioRecord.ERROR_INVALID_OPERATION) {
-                Log.e(Ref.NAME, "Invalid operation error");
+                Logging.e("Invalid operation error");
                 break;
             } else if (result == AudioRecord.ERROR_BAD_VALUE) {
-                Log.e(Ref.NAME, "Bad value error");
+                Logging.e("Bad value error");
                 break;
             } else if (result == AudioRecord.ERROR) {
-                Log.e(Ref.NAME, "Unknown error");
+                Logging.e("Unknown error");
                 break;
             }
 
             for (int i = 0; i < result; i++) {
-                sum += b[i];
-                counter++;
-                if (counter == chunkLenght) {
-                    receiver.receive(sum);
-                    counter = 0;
-                    sum = 0;
+                for (ISampleReceiver rec : receivers) {
+                    rec.setSample(b[i]);
                 }
             }
 
-            if (result < chunkLenght / 2) {
+            if (result < chunkLength / 2) {
                 sleepTime++;
-            } else if (result == chunkLenght) {
+            } else if (result == chunkLength) {
                 sleepTime--;
             }
             try {
@@ -75,6 +71,8 @@ public class SoundDecoder implements Runnable {
 
         record.stop();
         record.release();
+
+        Logging.d("Finished recording");
     }
 
     public AudioRecord findAudioRecord(int[] sampleRates) {
@@ -82,35 +80,38 @@ public class SoundDecoder implements Runnable {
             for (short audioFormat : new short[]{AudioFormat.ENCODING_PCM_8BIT, AudioFormat.ENCODING_PCM_16BIT}) {
                 for (short channelConfig : new short[]{AudioFormat.CHANNEL_IN_MONO, AudioFormat.CHANNEL_IN_STEREO}) {
                     try {
-                        Log.d(Ref.NAME, "Attempting rate " + rate + "Hz, bits: " + audioFormat + ", channel: "
+                        Logging.d("Attempting rate " + rate + "Hz, bits: " + audioFormat + ", channel: "
                                 + channelConfig);
                         int bufferSize = AudioRecord.getMinBufferSize(rate, channelConfig, audioFormat);
 
                         if (bufferSize != AudioRecord.ERROR_BAD_VALUE) {
                             // check if we can instantiate and have a success
-                            Log.d(Ref.NAME, "Valid for this device! Trying it out.. " + bufferSize);
+                            Logging.d("Valid for this device! Trying it out.. " + bufferSize);
                             AudioRecord recorder = new AudioRecord(MediaRecorder.AudioSource.DEFAULT, rate, channelConfig, audioFormat, bufferSize);
 
                             if (recorder.getState() == AudioRecord.STATE_INITIALIZED) {
-                                Log.d(Ref.NAME, "Found proper setting");
+                                Logging.d("Found proper setting");
                                 return recorder;
                             } else {
-                                Log.d(Ref.NAME, "Invalid, keep trying");
+                                Logging.d("Invalid, keep trying");
                                 recorder.release();
                             }
                         }
                     } catch (Exception e) {
-                        Log.e(Ref.NAME, rate + "Exception, keep trying.", e);
+                        Logging.e(rate + "Exception, keep trying.", e);
                     }
                 }
             }
         }
-        Log.w(Ref.NAME, "No valid settings found for this device!");
+        Logging.w("No valid settings found for this device!");
         return null;
     }
 
-    public void finish() {
+    public void finish(Thread t) {
         finished = true;
+        if (t != null) {
+            t.interrupt();
+        }
     }
 }
 

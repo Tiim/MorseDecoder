@@ -2,6 +2,7 @@ package tim.matura.processing.impl;
 
 import tim.matura.processing.IBinaryReceiver;
 import tim.matura.processing.ISoundReceiver;
+import tim.matura.utils.Utils;
 
 /**
  * @author Tiim
@@ -9,17 +10,22 @@ import tim.matura.processing.ISoundReceiver;
  */
 public class SndToBinaryProcessor implements ISoundReceiver {
 
-    private int soundLimit = 20000;
-    private final IBinaryReceiver receiver;
+    private float soundLimit = 2000;
+    private final IBinaryReceiver[] receivers;
 
-    public SndToBinaryProcessor(IBinaryReceiver receiver) {
+    public SndToBinaryProcessor(IBinaryReceiver... receivers) {
 
-        this.receiver = receiver;
+        this.receivers = receivers;
     }
 
     @Override
     public void receive(int soundSample) {
-        //Change this !!
-        receiver.setSound(soundSample > soundLimit);
+        boolean isSound = soundSample > soundLimit;
+        for (IBinaryReceiver rec : receivers) {
+            rec.setSound(isSound);
+        }
+        if (isSound) {
+            soundLimit = Utils.average(soundLimit, soundSample);
+        }
     }
 }
