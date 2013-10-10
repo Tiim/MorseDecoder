@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AppMorseTranslator</string>
+    <string name="app_name">MorseTranslator</string>
+    <string name="recStop">Stop Recording</string>
+    <string name="recStart">Start Recording</string>
+    <string name="debugMessage">Debug Log:</string>
 </resources>

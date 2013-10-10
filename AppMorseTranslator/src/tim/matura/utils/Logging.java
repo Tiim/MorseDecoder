@@ -1,6 +1,7 @@
 package tim.matura.utils;
 
 import android.util.Log;
+import tim.matura.app.LogWidget;
 import tim.matura.app.Main;
 
 import java.util.ArrayList;
@@ -19,33 +20,52 @@ public class Logging {
 
     public static final List<String> MESSAGES = new ArrayList<String>();
 
+    private static LogWidget view;
+
+    public static void setLogWidget(LogWidget c) {
+        view = c;
+        d("Loggggggggg :" + view);
+    }
+
     public static void d(String message) {
-        Log.d(NAME,INSTANCE_ID + " - " + message);
-        MESSAGES.add("[DEBUG] " + message);
+        Log.d(NAME, INSTANCE_ID + " - " + message);
+        show("[DEBUG] " + message);
+    }
+
+    public static void df(String message, Object... arg) {
+        d(String.format(message, arg));
     }
 
     public static void d(String message, Throwable t) {
         Log.d(NAME, INSTANCE_ID + " - " + message, t);
-        MESSAGES.add("[DEBUG] " + message + " --> " + t.getMessage());
+        show("[DEBUG] " + message + " --> " + t.getMessage());
     }
 
     public static void e(String message) {
         Log.e(NAME, INSTANCE_ID + " - " + message);
-        MESSAGES.add("[ERROR] " + message);
+        show("[ERROR] " + message);
     }
 
     public static void e(String message, Throwable t) {
         Log.e(NAME, INSTANCE_ID + " - " + message, t);
-        MESSAGES.add("[ERROR] " + message + " --> " + t.getMessage());
+        show("[ERROR] " + message + " --> " + t.getMessage());
     }
 
     public static void w(String message) {
         Log.w(NAME, INSTANCE_ID + " - " + message);
-        MESSAGES.add("[WARNING] " + message);
+        show("[WARNING] " + message);
     }
 
     public static void w(String message, Throwable t) {
         Log.w(NAME, INSTANCE_ID + " - " + message, t);
-        MESSAGES.add("[WARNING] " + message + "-->" + t.getMessage());
+        show("[WARNING] " + message + "-->" + t.getMessage());
+    }
+
+    public static void show(String s) {
+        if (view != null && s != null) {
+            view.append(s);
+//        } else {
+//            throw new IllegalStateException("Uiii :(");
+        }
     }
 }

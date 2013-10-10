@@ -3,27 +3,67 @@
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-    >
+        >
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+        <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recStart"
+                android:id="@+id/strtRecButton"
+                android:onClick="startRecording"
+                />
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Start Recording"
-        android:id="@+id/strtRecButton"
-        android:onClick="startRecording"/>
+        <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recStop"
+                android:id="@+id/stpRecButton"
+                android:onClick="stopRecording"
+                />
+        <TextView
+                android:id="@+id/instanceNr"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                />
+    </LinearLayout
+            >
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Stop Recording"
-        android:id="@+id/stpRecButton"
-        android:onClick="stopRecording"/>
+    <TextView
+            android:id="@+id/textOutput"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            >
+        <tim.matura.app.GraphWidget
+                android:id="@+id/soundGraph"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="50"
+                />
 
-    <view
-        class="tim.matura.app.GraphWidget"
-        android:id="@+id/soundGraph"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        />
+        <tim.matura.app.GraphWidget
+                android:id="@+id/boolGraph"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="50"
+                />
+
+        <tim.matura.app.LogWidget
+                android:id="@+id/log"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="25"
+                android:text="@string/debugMessage"
+                />
+
+    </LinearLayout>
 </LinearLayout>
 

@@ -3,6 +3,7 @@ package tim.matura.app;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import tim.matura.app.AppMorseTranslator.R;
 import tim.matura.processing.ITextReceiver;
 import tim.matura.processing.impl.*;
@@ -15,6 +16,8 @@ public class Main extends Activity {
     private Thread recordThread;
     private SoundDecoder decoder;
     private GraphWidget soundGraph;
+    private GraphWidget booleanGraph;
+    private TextView textView;
 
     /**
      * Called when the activity is first created.
@@ -24,8 +27,14 @@ public class Main extends Activity {
         super.onCreate(null);
         setContentView(R.layout.main);
         soundGraph = (GraphWidget) findViewById(R.id.soundGraph);
-        Logging.d("Finished starting app");
+        booleanGraph = (GraphWidget) findViewById(R.id.boolGraph);
+        textView = (TextView) findViewById(R.id.textOutput);
 
+
+        TextView instance = (TextView) findViewById(R.id.instanceNr);
+        Logging.setLogWidget((LogWidget) findViewById(R.id.log));
+        instance.setText(Integer.toString(Logging.INSTANCE_ID));
+        Logging.d("Finished starting app");
     }
 
     public void stopRecording(View v) {
@@ -44,6 +53,7 @@ public class Main extends Activity {
         Logging.d("Start Recording ..");
         decoder = new SoundDecoder(512);
 
+
         decoder.setSampleReceiver(
                 new SampleToChunkProcessor(
                         new SndToBinaryProcessor(
@@ -53,12 +63,14 @@ public class Main extends Activity {
                                                         new ITextReceiver() {
                                                             @Override
                                                             public void setText(String string) {
-                                                                Logging.d("Text: " + string);
+                                                                textView.append(string);
                                                             }
                                                         }
                                                 )
                                         )
-                                )
+                                ),
+                                booleanGraph
+
                         ),
                         soundGraph
                 )

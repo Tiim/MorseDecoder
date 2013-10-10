@@ -31,4 +31,14 @@ public class Utils {
         return sum / (float) length;
     }
 
+    public static int max(int[] array) {
+        int max = array[0];
+        for (int i : array) {
+            if (i > max) {
+                max = i;
+            }
+        }
+        return max;
+    }
+
 }
