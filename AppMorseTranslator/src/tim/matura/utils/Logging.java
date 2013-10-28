@@ -23,6 +23,7 @@ public class Logging {
     private static LogWidget view;
 
     public static void setLogWidget(LogWidget c) {
+        c.append(String.valueOf(INSTANCE_ID));
         view = c;
     }
 

@@ -3,6 +3,7 @@ package tim.matura.sound;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
+import android.os.Looper;
 import tim.matura.processing.ISampleReceiver;
 import tim.matura.utils.Logging;
 
@@ -29,6 +30,7 @@ public class SoundDecoder implements Runnable {
 
     @Override
     public void run() {
+        Looper.prepare();
         int sleepTime = 10;
         short[] b = new short[chunkLength];
         AudioRecord record = findAudioRecord(FORMATS);
