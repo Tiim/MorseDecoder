@@ -56,7 +56,7 @@ public class MorseToAudio {
     }
 
     private byte[] getSineWave(int duration, boolean quiet) {
-        final int sampleCount = (duration * SAMPLE_RATE / 1000) + (SAMPLE_RATE / 1000);
+        final int sampleCount = (duration * SAMPLE_RATE / 1000) + ((DIT_LENGTH * SAMPLE_RATE) / 1000);
         final byte[] b = new byte[sampleCount * 2];
         if (!quiet) {
             final double[] samples = new double[sampleCount];
@@ -64,7 +64,7 @@ public class MorseToAudio {
             for (int i = 0; i < (duration * SAMPLE_RATE / 1000); ++i) {
                 samples[i] = Math.sin(2 * Math.PI * i / (SAMPLE_RATE / freq));
             }
-            for (int i = duration * SAMPLE_RATE / 100; i < sampleCount; i++) {
+            for (int i = duration * SAMPLE_RATE / 1000; i < sampleCount; i++) {
                 samples[i] = 0;
             }
             int idx = 0;

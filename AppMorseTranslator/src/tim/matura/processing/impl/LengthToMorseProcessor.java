@@ -25,7 +25,6 @@ public class LengthToMorseProcessor implements ISoundLengthReceiver {
         this.receivers = receivers;
     }
 
-    // TODO: probably set fixed Tick lenght and make it adjustable
     @Override
     public void setSoundLength(float length, boolean isSound) {
 

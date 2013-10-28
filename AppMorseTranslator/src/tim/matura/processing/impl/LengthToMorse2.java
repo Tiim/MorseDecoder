@@ -15,7 +15,7 @@ public class LengthToMorse2 implements ISoundLengthReceiver {
     private final IMorseReceiver[] receivers;
 
     //TODO: Make that changable in the gui.
-    private float morseTickLength = 0.240f; //s
+    private float morseTickLength = 0.240f; //s     == 5 WPM == 25 BPM
 
 
     public LengthToMorse2(IMorseReceiver... receivers) {
