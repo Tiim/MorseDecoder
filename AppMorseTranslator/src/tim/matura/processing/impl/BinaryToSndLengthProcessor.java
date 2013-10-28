@@ -11,8 +11,9 @@ import tim.matura.utils.Logging;
 public class BinaryToSndLengthProcessor implements IBinaryReceiver {
 
     private final ISoundLengthReceiver[] receivers;
-    boolean last = false;
-    int duration = 0;
+    private boolean last = false;
+    private int duration = 0;
+    private int samplesPerSecond = 0;
 
     public BinaryToSndLengthProcessor(ISoundLengthReceiver... receiver) {
 
@@ -25,11 +26,16 @@ public class BinaryToSndLengthProcessor implements IBinaryReceiver {
         duration++;
         if (sound != last) {
             for (ISoundLengthReceiver rec : receivers) {
-                rec.setSoundLenght(duration, last);
+                rec.setSoundLength((float) duration / (float) samplesPerSecond, last);
             }
             Logging.d("Length: " + duration + " -> " + last);
             last = sound;
             duration = 0;
         }
+    }
+
+
+    public void setSamplePerSecond(int x) {
+        samplesPerSecond = x;
     }
 }

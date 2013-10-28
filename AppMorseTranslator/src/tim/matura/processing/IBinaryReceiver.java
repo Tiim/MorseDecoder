@@ -8,4 +8,5 @@ public interface IBinaryReceiver {
 
     public void setSound(boolean sound);
 
+    public void setSamplePerSecond(int x);
 }

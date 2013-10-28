@@ -41,4 +41,12 @@ public class Utils {
         return max;
     }
 
+    public static int sum(int[] toSum) {
+        int sum = 0;
+        for (int i : toSum) {
+            sum += i;
+        }
+        return sum;
+    }
+
 }

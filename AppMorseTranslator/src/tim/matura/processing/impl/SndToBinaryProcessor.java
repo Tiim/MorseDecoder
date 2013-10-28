@@ -23,8 +23,12 @@ public class SndToBinaryProcessor implements ISoundReceiver {
         for (IBinaryReceiver rec : receivers) {
             rec.setSound(isSound);
         }
-//        if (isSound) {
-//            soundLimit = Utils.average(soundLimit, soundSample);
-//        }
+    }
+
+    @Override
+    public void setSamplePerSecond(int i) {
+        for(IBinaryReceiver r : receivers) {
+            r.setSamplePerSecond(i);
+        }
     }
 }

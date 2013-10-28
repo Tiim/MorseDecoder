@@ -1,7 +1,6 @@
-package tim.matura.app;
+package tim.matura.app.widget;
 
 import android.content.Context;
-import android.text.InputType;
 import android.text.method.ScrollingMovementMethod;
 import android.util.AttributeSet;
 import android.widget.TextView;

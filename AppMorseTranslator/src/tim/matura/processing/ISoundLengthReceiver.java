@@ -5,5 +5,6 @@ package tim.matura.processing;
  * @since 29.07.13 12:10
  */
 public interface ISoundLengthReceiver {
-    public void setSoundLenght(int lenght, boolean isSound);
+
+    public void setSoundLength(float length, boolean isSound);
 }

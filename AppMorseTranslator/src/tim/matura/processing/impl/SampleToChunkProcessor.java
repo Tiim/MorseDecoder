@@ -8,6 +8,7 @@ import tim.matura.utils.Utils;
  * @author Tiim
  * @since 24.08.13 10:53
  */
+@Deprecated
 public class SampleToChunkProcessor implements ISampleReceiver {
 
     private final ISoundReceiver[] receivers;

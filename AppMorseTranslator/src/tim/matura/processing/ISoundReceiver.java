@@ -5,5 +5,8 @@ package tim.matura.processing;
  * @since 29.07.13 12:05
  */
 public interface ISoundReceiver {
+
     public void receive(int soundSample);
+
+    public void setSamplePerSecond(int x);
 }

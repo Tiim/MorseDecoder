@@ -4,4 +4,7 @@
     <string name="recStop">Stop Recording</string>
     <string name="recStart">Start Recording</string>
     <string name="debugMessage">Debug Log:</string>
+    <string name="HelloWorld">Hello World!</string>
+    <string name="play">Play</string>
+    <string name="stop">Stop</string>
 </resources>

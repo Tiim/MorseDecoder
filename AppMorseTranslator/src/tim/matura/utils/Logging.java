@@ -1,7 +1,7 @@
 package tim.matura.utils;
 
 import android.util.Log;
-import tim.matura.app.LogWidget;
+import tim.matura.app.widget.LogWidget;
 import tim.matura.app.Main;
 
 import java.util.ArrayList;
@@ -24,12 +24,11 @@ public class Logging {
 
     public static void setLogWidget(LogWidget c) {
         view = c;
-        d("Loggggggggg :" + view);
     }
 
     public static void d(String message) {
         Log.d(NAME, INSTANCE_ID + " - " + message);
-        show("[DEBUG] " + message);
+        show(message);
     }
 
     public static void df(String message, Object... arg) {
@@ -64,8 +63,6 @@ public class Logging {
     public static void show(String s) {
         if (view != null && s != null) {
             view.append(s);
-//        } else {
-//            throw new IllegalStateException("Uiii :(");
         }
     }
 }

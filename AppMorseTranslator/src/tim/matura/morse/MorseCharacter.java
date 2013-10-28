@@ -7,8 +7,10 @@ package tim.matura.morse;
 public enum MorseCharacter {
     DIT(0, 1),
     DAH(1, 3),
-    PAUSE_SHORT(2, 3),
-    PAUSE_LONG(3, 7);
+    PAUSE_BETWEEN_SYMBOLS(2, 1),
+    PAUSE_SHORT(3, 3),
+    PAUSE_LONG(4, 7),
+    UNKNOWN(-1, 0);
 
     private int lenght;
     private int id;

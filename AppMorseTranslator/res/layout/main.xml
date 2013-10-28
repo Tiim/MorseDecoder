@@ -1,69 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-        >
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
-        <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/recStart"
-                android:id="@+id/strtRecButton"
-                android:onClick="startRecording"
-                />
-
-        <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/recStop"
-                android:id="@+id/stpRecButton"
-                android:onClick="stopRecording"
-                />
-        <TextView
-                android:id="@+id/instanceNr"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                />
-    </LinearLayout
-            >
-
-    <TextView
-            android:id="@+id/textOutput"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            />
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent"
-            >
-        <tim.matura.app.GraphWidget
-                android:id="@+id/soundGraph"
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="50"
-                />
-
-        <tim.matura.app.GraphWidget
-                android:id="@+id/boolGraph"
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="50"
-                />
-
-        <tim.matura.app.LogWidget
-                android:id="@+id/log"
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="25"
-                android:text="@string/debugMessage"
-                />
-
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
+    <LinearLayout android:layout_height="0dp" android:layout_weight="50" android:layout_width="fill_parent" android:orientation="vertical">
+        <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <Button android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/recStart" android:id="@+id/strtRecButton" android:onClick="startRecording"/>
+            <Button android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/recStop" android:id="@+id/stpRecButton" android:onClick="stopRecording"/>
+        </LinearLayout>
+        <TextView android:id="@+id/textOutput" android:layout_width="fill_parent" android:layout_height="wrap_content"/>
+        <LinearLayout android:orientation="vertical" android:layout_height="fill_parent" android:layout_width="fill_parent">
+            <tim.matura.app.widget.GraphWidget android:id="@+id/soundGraph" android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="1"/>
+        </LinearLayout>
     </LinearLayout>
+    <LinearLayout android:orientation="vertical" android:layout_height="wrap_content" android:layout_width="fill_parent">
+        <LinearLayout android:orientation="horizontal" android:layout_height="wrap_content" android:layout_width="fill_parent">
+            <EditText android:id="@+id/morseInput" android:layout_weight="9" android:hint="@string/HelloWorld" android:inputType="text" android:layout_width="0dp" android:layout_height="fill_parent"/>
+            <LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <Button android:text="@string/play" android:layout_weight="1" android:onClick="playMorse" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+                <Button android:text="@string/stop" android:layout_weight="1" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
+        <TextView android:id="@+id/morseOutput" android:layout_height="wrap_content" android:layout_width="fill_parent"/>
+    </LinearLayout>
+    <tim.matura.app.widget.LogWidget android:id="@+id/log" android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="25" android:text="@string/debugMessage"/>
 </LinearLayout>
 
