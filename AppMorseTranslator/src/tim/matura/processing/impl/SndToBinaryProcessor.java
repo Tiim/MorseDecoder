@@ -27,7 +27,7 @@ public class SndToBinaryProcessor implements ISoundReceiver {
 
     @Override
     public void setSamplePerSecond(int i) {
-        for(IBinaryReceiver r : receivers) {
+        for (IBinaryReceiver r : receivers) {
             r.setSamplePerSecond(i);
         }
     }

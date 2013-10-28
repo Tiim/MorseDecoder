@@ -11,8 +11,6 @@ public class SampleSmoother implements ISampleReceiver {
 
     private final ISoundReceiver[] receivers;
 
-    private int samplesPerSeconds = 0;
-
     private float value = 0;
 
     public SampleSmoother(ISoundReceiver... receivers) {
@@ -31,7 +29,7 @@ public class SampleSmoother implements ISampleReceiver {
 
     @Override
     public void setSamplePerSecond(int i) {
-        for(ISoundReceiver r : receivers) {
+        for (ISoundReceiver r : receivers) {
             r.setSamplePerSecond(i);
         }
     }

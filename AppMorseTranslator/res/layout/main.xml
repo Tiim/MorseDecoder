@@ -5,6 +5,19 @@
             <Button android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/recStart" android:id="@+id/strtRecButton" android:onClick="startRecording"/>
             <Button android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/recStop" android:id="@+id/stpRecButton" android:onClick="stopRecording"/>
         </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" android:layout_gravity="left|center_vertical">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ditLengthLabel"
+                    android:id="@+id/textView" android:layout_gravity="center_horizontal|top"/>
+            <EditText android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="240"
+                      android:id="@+id/textDitLength" android:layout_gravity="center_horizontal|top" android:inputType="number"
+                      android:editable="true"/>
+        </LinearLayout>
         <TextView android:id="@+id/textOutput" android:layout_width="fill_parent" android:layout_height="wrap_content"/>
         <LinearLayout android:orientation="vertical" android:layout_height="fill_parent" android:layout_width="fill_parent">
             <tim.matura.app.widget.GraphWidget android:id="@+id/soundGraph" android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="1"/>
@@ -20,6 +33,8 @@
         </LinearLayout>
         <TextView android:id="@+id/morseOutput" android:layout_height="wrap_content" android:layout_width="fill_parent"/>
     </LinearLayout>
-    <tim.matura.app.widget.LogWidget android:id="@+id/log" android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="25" android:text="@string/debugMessage"/>
+    <tim.matura.app.widget.LogWidget android:id="@+id/log" android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="25" android:text="@string/debugMessage"
+                                     android:enabled="false" android:focusable="false"
+                                     android:focusableInTouchMode="false"/>
 </LinearLayout>
 

@@ -1,8 +1,8 @@
 package tim.matura.utils;
 
 import android.util.Log;
-import tim.matura.app.widget.LogWidget;
 import tim.matura.app.Main;
+import tim.matura.app.widget.LogWidget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class Logging {
 
     public static final String NAME = Main.class.getPackage().getName();
 
-    public static final List<String> MESSAGES = new ArrayList<String>();
+    public static final List<String> MESSAGES = new ArrayList<>();
 
     private static LogWidget view;
 

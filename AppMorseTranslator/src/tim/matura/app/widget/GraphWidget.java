@@ -6,9 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
-import tim.matura.processing.IBinaryReceiver;
 import tim.matura.processing.ISoundReceiver;
-import tim.matura.utils.Logging;
 import tim.matura.utils.Utils;
 
 /**

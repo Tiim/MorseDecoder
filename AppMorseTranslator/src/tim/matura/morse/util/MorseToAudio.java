@@ -2,9 +2,7 @@ package tim.matura.morse.util;
 
 import tim.matura.morse.MorseCharacter;
 import tim.matura.morse.MorseSequence;
-import tim.matura.utils.Logging;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 /**
