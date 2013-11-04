@@ -5,33 +5,31 @@ import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import tim.matura.app.AppMorseTranslator.R;
-import tim.matura.app.widget.GraphWidget;
 import tim.matura.app.widget.LogWidget;
 import tim.matura.morse.MorseSequence;
 import tim.matura.morse.Translator;
 import tim.matura.morse.util.MorseToAudio;
 import tim.matura.processing.ILengthUpdateListener;
 import tim.matura.processing.ITextReceiver;
+import tim.matura.processing.debug.SoundToFile;
 import tim.matura.processing.impl.*;
 import tim.matura.sound.SoundDecoder;
 import tim.matura.utils.Logging;
 
-public class Main extends Activity implements TextWatcher {
+public class Main extends Activity {
 
 
     private Thread recordThread;
     private SoundDecoder decoder;
-    private GraphWidget soundGraph;
+    //    private GraphWidget soundGraph;
     private TextView textView;
     private EditText textDitLength;
 
-    private LengthToMorse2 l2mProcessor;
+    private LengthToMorse l2mProcessor;
 
     /**
      * Called when the activity is first created.
@@ -40,7 +38,7 @@ public class Main extends Activity implements TextWatcher {
     public void onCreate(final Bundle unused) {
         super.onCreate(null);
         setContentView(R.layout.main);
-        soundGraph = (GraphWidget) findViewById(R.id.soundGraph);
+//        soundGraph = (GraphWidget) findViewById(R.id.soundGraph);
         textView = (TextView) findViewById(R.id.textOutput);
         textDitLength = (EditText) findViewById(R.id.textDitLength);
         Logging.setLogWidget((LogWidget) findViewById(R.id.log));
@@ -53,9 +51,11 @@ public class Main extends Activity implements TextWatcher {
             Logging.d("Stop Recording");
             decoder.finish(recordThread);
             recordThread = null;
+            SoundToFile.getInstance().flush();
         }
     }
 
+    //TODO: Pretty this ugly section up :(
     public void startRecording(final View unused) {
         if (recordThread != null) {
             Logging.d("Recording already started.");
@@ -63,37 +63,48 @@ public class Main extends Activity implements TextWatcher {
         }
         Logging.d("Start Recording ..");
         decoder = new SoundDecoder(512);
-
-        l2mProcessor = new LengthToMorse2(
+        l2mProcessor = new LengthToMorse(
                 new ILengthUpdateListener() {
                     @Override
-                    public void lengthChanged(float val) {
-                        textDitLength.setText(Integer.toString((int) val));
+                    public void lengthChanged(final float val) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                textDitLength.setText(Integer.toString((int) val));
+                            }
+                        });
                     }
                 },
                 new MorseToTextProcessor(
                         new ITextReceiver() {
                             @Override
-                            public void setText(String string) {
-                                textView.append(string);
+                            public void setText(final String string) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        textView.append(string);
+                                    }
+                                });
                             }
                         }
                 )
         );
         decoder.setSampleReceiver(
+                SoundToFile.getInstance(),
                 new SampleSmoother(
-                        new SndToBinaryProcessor(
-                                new BinaryToSndLengthProcessor(l2mProcessor)
-                        ),
-                        soundGraph
+                        SoundToFile.getInstance()
+//                        new SndToBinaryProcessor(
+//                                new BinaryToSndLengthProcessor(l2mProcessor)
+//                        )
+//                        soundGraph
                 )
         );
-
+        setDitLength(null);
         recordThread = new Thread(decoder);
         recordThread.start();
     }
 
-
+    //TODO: Implement stop button..
     public void playMorse(final View unused) {
         String message = ((EditText) findViewById(R.id.morseInput)).getText().toString();
         if (message != null && !message.isEmpty()) {
@@ -110,20 +121,11 @@ public class Main extends Activity implements TextWatcher {
         }
     }
 
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        //DUMMY
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        //DUMMY
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
+    //TODO: Make it work event if recording thread has not been started yet
+    public void setDitLength(View unused) {
         if (l2mProcessor != null) {
-            l2mProcessor.setDitLength(Integer.parseInt(s.toString()));
+            l2mProcessor.setDitLength(Integer.parseInt(textDitLength.getText().toString()));
         }
     }
+
 }

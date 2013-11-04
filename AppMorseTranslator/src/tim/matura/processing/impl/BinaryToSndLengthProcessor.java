@@ -24,11 +24,13 @@ public class BinaryToSndLengthProcessor implements IBinaryReceiver {
     @Override
     public void setSound(boolean sound) {
         duration++;
+        //TODO: Something is weird with these lenghts..
         if (sound != last) {
+            float sndLength = (float) duration / (float) samplesPerSecond;
             for (ISoundLengthReceiver rec : receivers) {
-                rec.setSoundLength((float) duration / (float) samplesPerSecond, last);
+                rec.setSoundLength(sndLength * 100, last);
             }
-            Logging.d("Length: " + duration + " -> " + last);
+            Logging.d("Length: " + duration + " == " + sndLength * 100 + " -> " + last);
             last = sound;
             duration = 0;
         }

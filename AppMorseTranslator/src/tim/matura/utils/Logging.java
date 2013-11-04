@@ -62,8 +62,9 @@ public class Logging {
     }
 
     public static void show(String s) {
-        if (view != null && s != null) {
-            view.append(s);
-        }
+        //TODO: limit size of log widget
+//        if (view != null && s != null) {
+//            view.append(s);
+//        }
     }
 }

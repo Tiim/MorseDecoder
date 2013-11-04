@@ -57,7 +57,7 @@ public class GraphWidget extends View implements ISoundReceiver {
 
     @Override
     public void receive(int soundSample) {
-        if (chunkPointer == samplePerSecond / 2) {
+        if (chunkPointer == samplePerSecond -1) {
             chunkPointer = 0;
             if (pointer >= chunks.length) {
                 pointer = 0;

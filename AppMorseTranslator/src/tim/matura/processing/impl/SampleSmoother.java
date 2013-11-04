@@ -20,8 +20,8 @@ public class SampleSmoother implements ISampleReceiver {
 
     @Override
     public void setSample(int sample) {
-        value = Math.abs(value);
-        value = value * 0.10f + sample * 0.90f;//oder andere Gewichte
+        sample = Math.abs(sample);
+        value = value * 0.95f + sample * 0.01f; //oder andere Gewichte
         for (ISoundReceiver r : receivers) {
             r.receive((int) value);
         }

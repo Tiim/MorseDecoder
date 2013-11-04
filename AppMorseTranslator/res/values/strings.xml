@@ -8,4 +8,5 @@
     <string name="play">Play</string>
     <string name="stop">Stop</string>
     <string name="ditLengthLabel">DIT duration in ns</string>
+    <string name="submit">Submit</string>
 </resources>

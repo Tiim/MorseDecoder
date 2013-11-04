@@ -4,13 +4,14 @@ import tim.matura.morse.MorseCharacter;
 import tim.matura.processing.ILengthUpdateListener;
 import tim.matura.processing.IMorseReceiver;
 import tim.matura.processing.ISoundLengthReceiver;
+import tim.matura.utils.Logging;
 import tim.matura.utils.Utils;
 
 /**
  * @author Tim
  * @since 21.10.13
  */
-public class LengthToMorse2 implements ISoundLengthReceiver {
+public class LengthToMorse implements ISoundLengthReceiver {
 
     private final ILengthUpdateListener lengthUpdateListener;
     private final IMorseReceiver[] receivers;
@@ -18,7 +19,7 @@ public class LengthToMorse2 implements ISoundLengthReceiver {
     private float morseTickLength = 0.240f; //s     == 5 WPM == 25 BPM
 
 
-    public LengthToMorse2(ILengthUpdateListener l, IMorseReceiver... receivers) {
+    public LengthToMorse(ILengthUpdateListener l, IMorseReceiver... receivers) {
         lengthUpdateListener = l;
 
         this.receivers = receivers;
@@ -60,11 +61,17 @@ public class LengthToMorse2 implements ISoundLengthReceiver {
         if (c != MorseCharacter.PAUSE_BETWEEN_SYMBOLS) {
             for (IMorseReceiver r : receivers) {
                 r.setMorseChar(c);
+                Logging.d(c.toString());
             }
         }
     }
 
     public void setDitLength(int ditLength) {
         this.morseTickLength = ditLength;
+        Logging.d("Expected Values:");
+        Logging.d(MorseCharacter.DIT.getLenght() * morseTickLength + ": DIT");
+        Logging.d(MorseCharacter.DAH.getLenght() * morseTickLength + ": DAH");
+        Logging.d(MorseCharacter.PAUSE_SHORT.getLenght() * morseTickLength + ": Pause1");
+        Logging.d(MorseCharacter.PAUSE_LONG.getLenght() * morseTickLength + ": Pause2");
     }
 }

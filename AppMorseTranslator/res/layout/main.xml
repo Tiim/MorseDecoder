@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
-    <LinearLayout android:layout_height="0dp" android:layout_weight="50" android:layout_width="fill_parent" android:orientation="vertical">
-        <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
-            <Button android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/recStart" android:id="@+id/strtRecButton" android:onClick="startRecording"/>
-            <Button android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/recStop" android:id="@+id/stpRecButton" android:onClick="stopRecording"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
+              android:layout_width="fill_parent" android:layout_height="fill_parent">
+    <LinearLayout android:layout_height="0dp" android:layout_weight="50" android:layout_width="fill_parent"
+                  android:orientation="vertical">
+        <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
+                      android:layout_height="wrap_content">
+            <Button android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+                    android:text="@string/recStart" android:id="@+id/strtRecButton" android:onClick="startRecording"/>
+            <Button android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+                    android:text="@string/recStop" android:id="@+id/stpRecButton" android:onClick="stopRecording"/>
         </LinearLayout>
         <LinearLayout
                 android:orientation="horizontal"
@@ -14,27 +19,43 @@
                     android:layout_height="wrap_content"
                     android:text="@string/ditLengthLabel"
                     android:id="@+id/textView" android:layout_gravity="center_horizontal|top"/>
-            <EditText android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="240"
-                      android:id="@+id/textDitLength" android:layout_gravity="center_horizontal|top" android:inputType="number"
+            <EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="240"
+                      android:id="@+id/textDitLength" android:layout_gravity="center_horizontal|top"
+                      android:inputType="number"
                       android:editable="true"/>
+            <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:text="@string/submit"
+                    android:id="@+id/buttonsubmitNewLength" android:onClick="setDitLength"/>
         </LinearLayout>
         <TextView android:id="@+id/textOutput" android:layout_width="fill_parent" android:layout_height="wrap_content"/>
-        <LinearLayout android:orientation="vertical" android:layout_height="fill_parent" android:layout_width="fill_parent">
-            <tim.matura.app.widget.GraphWidget android:id="@+id/soundGraph" android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="1"/>
+        <LinearLayout android:orientation="vertical" android:layout_height="fill_parent"
+                      android:layout_width="fill_parent">
+            <!--tim.matura.app.widget.GraphWidget android:id="@+id/soundGraph" android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="1"/-->
         </LinearLayout>
     </LinearLayout>
-    <LinearLayout android:orientation="vertical" android:layout_height="wrap_content" android:layout_width="fill_parent">
-        <LinearLayout android:orientation="horizontal" android:layout_height="wrap_content" android:layout_width="fill_parent">
-            <EditText android:id="@+id/morseInput" android:layout_weight="9" android:hint="@string/HelloWorld" android:inputType="text" android:layout_width="0dp" android:layout_height="fill_parent"/>
-            <LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
-                <Button android:text="@string/play" android:layout_weight="1" android:onClick="playMorse" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
-                <Button android:text="@string/stop" android:layout_weight="1" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+    <LinearLayout android:orientation="vertical" android:layout_height="wrap_content"
+                  android:layout_width="fill_parent">
+        <LinearLayout android:orientation="horizontal" android:layout_height="wrap_content"
+                      android:layout_width="fill_parent">
+            <EditText android:id="@+id/morseInput" android:layout_weight="9" android:hint="@string/HelloWorld"
+                      android:inputType="text" android:layout_width="0dp" android:layout_height="fill_parent"/>
+            <LinearLayout android:orientation="vertical" android:layout_width="wrap_content"
+                          android:layout_height="wrap_content">
+                <Button android:text="@string/play" android:layout_weight="1" android:onClick="playMorse"
+                        android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+                <Button android:text="@string/stop" android:layout_weight="1" android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
-        <TextView android:id="@+id/morseOutput" android:layout_height="wrap_content" android:layout_width="fill_parent"/>
+        <TextView android:id="@+id/morseOutput" android:layout_height="wrap_content"
+                  android:layout_width="fill_parent"/>
     </LinearLayout>
-    <tim.matura.app.widget.LogWidget android:id="@+id/log" android:layout_width="fill_parent" android:layout_height="0dp" android:layout_weight="25" android:text="@string/debugMessage"
-                                     android:enabled="false" android:focusable="false"
+    <tim.matura.app.widget.LogWidget android:id="@+id/log" android:layout_width="fill_parent"
+                                     android:layout_height="0dp" android:layout_weight="25"
+                                     android:text="@string/debugMessage"
+                                     android:enabled="true" android:focusable="false"
                                      android:focusableInTouchMode="false"/>
 </LinearLayout>
 

@@ -5,6 +5,9 @@ import tim.matura.morse.MorseSequence;
 import tim.matura.morse.Translator;
 import tim.matura.processing.IMorseReceiver;
 import tim.matura.processing.ITextReceiver;
+import tim.matura.utils.Logging;
+
+import java.util.logging.Logger;
 
 /**
  * @author Tiim
@@ -26,7 +29,9 @@ public class MorseToTextProcessor implements IMorseReceiver {
 
         if (ch == MorseCharacter.PAUSE_SHORT) {
             for (ITextReceiver rec : receivers) {
-                rec.setText(new Translator(morseSequence).getString());
+                String s = new Translator(morseSequence).getString();
+                rec.setText(s);
+                Logging.d(s);
             }
             morseSequence = new MorseSequence();
         }

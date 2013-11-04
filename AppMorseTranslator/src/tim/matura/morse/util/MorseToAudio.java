@@ -54,6 +54,7 @@ public class MorseToAudio {
     }
 
     private byte[] getSineWave(int duration, boolean quiet) {
+        //TODO: Produces only noise on galxy S4
         final int sampleCount = (duration * SAMPLE_RATE / 1000) + ((DIT_LENGTH * SAMPLE_RATE) / 1000);
         final byte[] b = new byte[sampleCount * 2];
         if (!quiet) {
