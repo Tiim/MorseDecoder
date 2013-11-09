@@ -15,7 +15,7 @@ import tim.matura.morse.Translator;
 import tim.matura.morse.util.MorseToAudio;
 import tim.matura.processing.ILengthUpdateListener;
 import tim.matura.processing.ITextReceiver;
-import tim.matura.processing.debug.SoundToFile;
+import tim.matura.processing.debug.FileLogger;
 import tim.matura.processing.impl.*;
 import tim.matura.sound.SoundDecoder;
 import tim.matura.utils.Logging;
@@ -51,7 +51,6 @@ public class Main extends Activity {
             Logging.d("Stop Recording");
             decoder.finish(recordThread);
             recordThread = null;
-            SoundToFile.getInstance().flush();
         }
     }
 
@@ -90,12 +89,12 @@ public class Main extends Activity {
                 )
         );
         decoder.setSampleReceiver(
-                SoundToFile.getInstance(),
-                new SampleSmoother(
-                        SoundToFile.getInstance()
-//                        new SndToBinaryProcessor(
-//                                new BinaryToSndLengthProcessor(l2mProcessor)
-//                        )
+//                new FileLogger("idedroid/samples.txt"),
+                new BufferVolumeProcessor(
+//                        new FileLogger("idedroid/average.txt")
+                        new SndToBinaryProcessor(
+                                new BinaryToSndLengthProcessor(l2mProcessor)
+                        )
 //                        soundGraph
                 )
         );

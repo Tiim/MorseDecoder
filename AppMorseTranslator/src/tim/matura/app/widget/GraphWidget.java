@@ -56,7 +56,7 @@ public class GraphWidget extends View implements ISoundReceiver {
     }
 
     @Override
-    public void receive(int soundSample) {
+    public void receive(float soundSample) {
         if (chunkPointer == samplePerSecond -1) {
             chunkPointer = 0;
             if (pointer >= chunks.length) {
@@ -68,7 +68,7 @@ public class GraphWidget extends View implements ISoundReceiver {
             chunks[pointer++] = Utils.sum(chunkMaker);
             postInvalidate();
         } else {
-            chunkMaker[chunkPointer++] = soundSample;
+            chunkMaker[chunkPointer++] = (int)soundSample;
         }
     }
 
