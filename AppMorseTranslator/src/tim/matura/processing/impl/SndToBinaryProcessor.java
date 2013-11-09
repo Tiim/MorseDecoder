@@ -9,7 +9,7 @@ import tim.matura.processing.ISoundReceiver;
  */
 public class SndToBinaryProcessor implements ISoundReceiver {
 
-    private static final float SOUND_LIMIT = 500;
+    private static final float SOUND_LIMIT = 1000;
     private final IBinaryReceiver[] receivers;
 
     public SndToBinaryProcessor(IBinaryReceiver... receivers) {

@@ -28,9 +28,9 @@ public class BinaryToSndLengthProcessor implements IBinaryReceiver {
         if (sound != last) {
             float sndLength = (float) duration / (float) samplesPerSecond;
             for (ISoundLengthReceiver rec : receivers) {
-                rec.setSoundLength(sndLength * 100, last);
+                rec.setSoundLength(sndLength, last);
             }
-            Logging.d("Length: " + duration + " == " + sndLength * 100 + " -> " + last);
+            Logging.d("Length: " + duration + " == " + sndLength + " -> " + last);
             last = sound;
             duration = 0;
         }

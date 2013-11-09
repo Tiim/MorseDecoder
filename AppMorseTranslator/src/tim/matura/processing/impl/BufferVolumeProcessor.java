@@ -30,7 +30,7 @@ public class BufferVolumeProcessor implements ISampleReceiver {
 
     @Override
     public void setSamplePerSecond(int i) {
-        buffer = new RingBuffer(i / 10);
+        buffer = new RingBuffer(i / 20);
         for (ISoundReceiver r : receivers) {
             r.setSamplePerSecond(i);
         }

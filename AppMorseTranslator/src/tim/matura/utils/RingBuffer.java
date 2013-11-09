@@ -21,6 +21,9 @@ public class RingBuffer {
 
         if (++i >= buffer.length) {
             i = 0;
+            if (!bufferFull) {
+                bufferFull = true;
+            }
         }
     }
 

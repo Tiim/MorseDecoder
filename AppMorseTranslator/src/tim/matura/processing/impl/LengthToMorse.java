@@ -61,13 +61,13 @@ public class LengthToMorse implements ISoundLengthReceiver {
         if (c != MorseCharacter.PAUSE_BETWEEN_SYMBOLS) {
             for (IMorseReceiver r : receivers) {
                 r.setMorseChar(c);
-                Logging.d(c.toString());
             }
+            Logging.d(c.toString());
         }
     }
 
     public void setDitLength(int ditLength) {
-        this.morseTickLength = ditLength;
+        this.morseTickLength = ((float) ditLength) / 2000f;
         Logging.d("Expected Values:");
         Logging.d(MorseCharacter.DIT.getLenght() * morseTickLength + ": DIT");
         Logging.d(MorseCharacter.DAH.getLenght() * morseTickLength + ": DAH");

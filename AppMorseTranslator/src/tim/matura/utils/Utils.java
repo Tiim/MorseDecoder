@@ -7,12 +7,14 @@ package tim.matura.utils;
 public class Utils {
 
     public static boolean isApproxEqual(float x, float y) {
-        return isApproxEqual(x, y, 15);
+        return isApproxEqual(x, y, 20);
     }
 
     public static boolean isApproxEqual(float x, float y, int percentage) {
-        float diff = (Math.abs(x) * percentage) / 100f;
-        return y < x + diff && y > x - diff;
+//        float diff = (Math.abs(x) * percentage) / 100f;
+//        return y < x + diff && y > x - diff;
+        return Math.abs((x - y / x) * 100) < percentage;
+
     }
 
     public static float average(float... ints) {
