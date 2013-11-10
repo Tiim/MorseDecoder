@@ -23,7 +23,7 @@ public class Logging {
     private static LogWidget view;
 
     public static void setLogWidget(LogWidget c) {
-        c.append(String.valueOf(INSTANCE_ID));
+        c.append(String.valueOf(INSTANCE_ID) + "\n");
         view = c;
     }
 
@@ -62,8 +62,8 @@ public class Logging {
 
     public static void show(String s) {
         //TODO: limit size of log widget
-//        if (view != null && s != null) {
-//            view.append(s);
-//        }
+        if (view != null && s != null) {
+            view.append(s + "\n");
+        }
     }
 }

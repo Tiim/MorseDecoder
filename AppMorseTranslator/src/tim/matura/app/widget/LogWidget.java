@@ -24,7 +24,6 @@ public class LogWidget extends TextView {
         post(new Runnable() {
             @Override
             public void run() {
-                LogWidget.super.append(" \n");
                 LogWidget.super.append(s);
 
                 final int scrollAmount = getLayout().getLineTop(getLineCount()) - getHeight();
@@ -32,6 +31,11 @@ public class LogWidget extends TextView {
                     scrollTo(0, scrollAmount);
                 } else {
                     scrollTo(0, 0);
+                }
+
+                if (length() > 550) {
+                    CharSequence content = getText();
+                    setText("");
                 }
             }
         });
