@@ -38,7 +38,6 @@ public class Logging {
 
     public static void d(String message, Throwable t) {
         Log.d(NAME, INSTANCE_ID + " - " + message, t);
-        show("[DEBUG] " + message + " --> " + t.getMessage());
     }
 
     public static void e(String message) {

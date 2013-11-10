@@ -30,7 +30,7 @@ public class BinaryToSndLengthProcessor implements IBinaryReceiver {
             for (ISoundLengthReceiver rec : receivers) {
                 rec.setSoundLength(sndLength, last);
             }
-            Logging.d("Length: " + duration + " == " + sndLength + " -> " + last);
+//            Logging.d("Length: " + duration + " == " + sndLength + " -> " + last);
             last = sound;
             duration = 0;
         }

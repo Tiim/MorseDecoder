@@ -7,6 +7,7 @@ import tim.matura.processing.ISoundReceiver;
  * @author Tim
  * @since 21.10.13
  */
+@Deprecated
 public class SampleSmoother implements ISampleReceiver {
 
     private final ISoundReceiver[] receivers;

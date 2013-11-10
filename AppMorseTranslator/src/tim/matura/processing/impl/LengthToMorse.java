@@ -18,6 +18,11 @@ public class LengthToMorse implements ISoundLengthReceiver {
 
     private float morseTickLength = 0.240f; //s     == 5 WPM == 25 BPM
 
+    private float dit = MorseCharacter.DIT.getLenght() * morseTickLength;
+    private float dah = MorseCharacter.DAH.getLenght() * morseTickLength;
+    private float pLong = MorseCharacter.PAUSE_LONG.getLenght() * morseTickLength;
+    private float pShort = MorseCharacter.PAUSE_SHORT.getLenght() * morseTickLength;
+    private float pMini = MorseCharacter.PAUSE_BETWEEN_SYMBOLS.getLenght() * morseTickLength;
 
     public LengthToMorse(ILengthUpdateListener l, IMorseReceiver... receivers) {
         lengthUpdateListener = l;
@@ -27,19 +32,26 @@ public class LengthToMorse implements ISoundLengthReceiver {
 
     @Override
     public void setSoundLength(float length, boolean isSound) {
-        if (Utils.isApproxEqual(length, MorseCharacter.DIT.getLenght() * morseTickLength) && isSound) {
+
+        // Some noise..
+        if (length < 0.05) return;
+
+        //Long or short
+        if (isSound && length <= dit * 2) {
             send(MorseCharacter.DIT);
             update(MorseCharacter.DIT, length);
-        } else if (Utils.isApproxEqual(length, MorseCharacter.DAH.getLenght() * morseTickLength) && isSound) {
+        } else if (isSound && length > dit * 2) {
             send(MorseCharacter.DAH);
             update(MorseCharacter.DAH, length);
-        } else if (Utils.isApproxEqual(length, MorseCharacter.PAUSE_LONG.getLenght() * morseTickLength) && !isSound) {
+
+            //Different pauses
+        } else if (!isSound && Utils.isApproxEqual(pLong, length)) {
             send(MorseCharacter.PAUSE_LONG);
             update(MorseCharacter.PAUSE_LONG, length);
-        } else if (Utils.isApproxEqual(length, MorseCharacter.PAUSE_SHORT.getLenght() * morseTickLength) && !isSound) {
+        } else if (!isSound && Utils.isApproxEqual(pShort, length)) {
             send(MorseCharacter.PAUSE_SHORT);
             update(MorseCharacter.PAUSE_SHORT, length);
-        } else if (Utils.isApproxEqual(length, MorseCharacter.PAUSE_BETWEEN_SYMBOLS.getLenght() * morseTickLength) && !isSound) {
+        } else if (!isSound && Utils.isApproxEqual(pMini, length)) {
             send(MorseCharacter.PAUSE_BETWEEN_SYMBOLS);
             update(MorseCharacter.PAUSE_BETWEEN_SYMBOLS, length);
         } else {
@@ -51,9 +63,10 @@ public class LengthToMorse implements ISoundLengthReceiver {
     private void update(MorseCharacter character, float length) {
         length *= character.getLenght();
         float dummy = morseTickLength;
-        morseTickLength = Utils.average(length, morseTickLength);
+        morseTickLength = Utils.average(length, morseTickLength, morseTickLength, morseTickLength, morseTickLength);
         if (morseTickLength != dummy) {
-            lengthUpdateListener.lengthChanged(morseTickLength);
+//            lengthUpdateListener.lengthChanged(morseTickLength * 2000f);
+//            setDitLength(morseTickLength * 2000f);
         }
     }
 
@@ -66,12 +79,19 @@ public class LengthToMorse implements ISoundLengthReceiver {
         }
     }
 
-    public void setDitLength(int ditLength) {
-        this.morseTickLength = ((float) ditLength) / 2000f;
+    public void setDitLength(float ditLength) {
+        this.morseTickLength = ditLength / 2000f;
+        dit = MorseCharacter.DIT.getLenght() * morseTickLength;
+        dah = MorseCharacter.DAH.getLenght() * morseTickLength;
+        pLong = MorseCharacter.PAUSE_LONG.getLenght() * morseTickLength;
+        pShort = MorseCharacter.PAUSE_SHORT.getLenght() * morseTickLength;
+        pMini = MorseCharacter.PAUSE_BETWEEN_SYMBOLS.getLenght() * morseTickLength;
+
         Logging.d("Expected Values:");
-        Logging.d(MorseCharacter.DIT.getLenght() * morseTickLength + ": DIT");
-        Logging.d(MorseCharacter.DAH.getLenght() * morseTickLength + ": DAH");
-        Logging.d(MorseCharacter.PAUSE_SHORT.getLenght() * morseTickLength + ": Pause1");
-        Logging.d(MorseCharacter.PAUSE_LONG.getLenght() * morseTickLength + ": Pause2");
+        Logging.d(dit + ": DIT");
+        Logging.d(dah + ": DAH");
+        Logging.d(pShort + ": Pause1");
+        Logging.d(pLong + ": Pause2");
+
     }
 }

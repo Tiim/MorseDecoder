@@ -95,7 +95,6 @@ public class Main extends Activity {
                         new SndToBinaryProcessor(
                                 new BinaryToSndLengthProcessor(l2mProcessor)
                         )
-//                        soundGraph
                 )
         );
         setDitLength(null);
