@@ -19,7 +19,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/ditLengthLabel"
                     android:id="@+id/textView" android:layout_gravity="center_horizontal|top"/>
-            <EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="240"
+            <!--EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="240"
                       android:id="@+id/textDitLength" android:layout_gravity="center_horizontal|top"
                       android:inputType="number"
                       android:editable="true"/>
@@ -27,7 +27,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:text="@string/submit"
-                    android:id="@+id/buttonsubmitNewLength" android:onClick="setDitLength"/>
+                    android:id="@+id/buttonsubmitNewLength" android:onClick="setDitLength"/-->
         </LinearLayout>
         <TextView android:id="@+id/textOutput" android:layout_width="fill_parent" android:layout_height="wrap_content"/>
         <LinearLayout android:orientation="vertical" android:layout_height="fill_parent"

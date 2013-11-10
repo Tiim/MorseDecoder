@@ -27,7 +27,7 @@ public class Main extends Activity {
     private SoundDecoder decoder;
     //    private GraphWidget soundGraph;
     private TextView textView;
-    private EditText textDitLength;
+//    private EditText textDitLength;
 
     private LengthToMorse l2mProcessor;
 
@@ -40,7 +40,7 @@ public class Main extends Activity {
         setContentView(R.layout.main);
 //        soundGraph = (GraphWidget) findViewById(R.id.soundGraph);
         textView = (TextView) findViewById(R.id.textOutput);
-        textDitLength = (EditText) findViewById(R.id.textDitLength);
+//        textDitLength = (EditText) findViewById(R.id.textDitLength);
         Logging.setLogWidget((LogWidget) findViewById(R.id.log));
         Logging.d("Finished starting app");
 
@@ -63,17 +63,17 @@ public class Main extends Activity {
         Logging.d("Start Recording ..");
         decoder = new SoundDecoder(512);
         l2mProcessor = new LengthToMorse(
-                new ILengthUpdateListener() {
-                    @Override
-                    public void lengthChanged(final float val) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                textDitLength.setText(Integer.toString((int) val));
-                            }
-                        });
-                    }
-                },
+//                new ILengthUpdateListener() {
+//                    @Override
+//                    public void lengthChanged(final float val) {
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                textDitLength.setText(Integer.toString((int) val));
+//                            }
+//                        });
+//                    }
+//                },
                 new MorseToTextProcessor(
                         new ITextReceiver() {
                             @Override
@@ -97,7 +97,7 @@ public class Main extends Activity {
                         )
                 )
         );
-        setDitLength(null);
+//        setDitLength(null);
         recordThread = new Thread(decoder);
         recordThread.start();
     }
@@ -120,10 +120,10 @@ public class Main extends Activity {
     }
 
     //TODO: Make it work event if recording thread has not been started yet
-    public void setDitLength(View unused) {
-        if (l2mProcessor != null) {
-            l2mProcessor.setDitLength(Integer.parseInt(textDitLength.getText().toString()));
-        }
-    }
+//    public void setDitLength(View unused) {
+//        if (l2mProcessor != null) {
+//            l2mProcessor.setDitLength(Integer.parseInt(textDitLength.getText().toString()));
+//        }
+//    }
 
 }

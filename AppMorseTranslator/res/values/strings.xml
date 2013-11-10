@@ -7,6 +7,6 @@
     <string name="HelloWorld">Hello World!</string>
     <string name="play">Play</string>
     <string name="stop">Stop</string>
-    <string name="ditLengthLabel">DIT duration in ns</string>
+    <string name="ditLengthLabel">DIT duration in ms: 25, wpm: 5, bpm: 25</string>
     <string name="submit">Submit</string>
 </resources>

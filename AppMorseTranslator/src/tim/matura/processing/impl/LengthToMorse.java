@@ -13,10 +13,10 @@ import tim.matura.utils.Utils;
  */
 public class LengthToMorse implements ISoundLengthReceiver {
 
-    private final ILengthUpdateListener lengthUpdateListener;
+//    private final ILengthUpdateListener lengthUpdateListener;
     private final IMorseReceiver[] receivers;
 
-    private float morseTickLength = 0.240f; //s     == 5 WPM == 25 BPM
+    private float morseTickLength = 0;//0.240f; //s     == 5 WPM == 25 BPM
 
     private float dit = MorseCharacter.DIT.getLenght() * morseTickLength;
     private float dah = MorseCharacter.DAH.getLenght() * morseTickLength;
@@ -24,9 +24,9 @@ public class LengthToMorse implements ISoundLengthReceiver {
     private float pShort = MorseCharacter.PAUSE_SHORT.getLenght() * morseTickLength;
     private float pMini = MorseCharacter.PAUSE_BETWEEN_SYMBOLS.getLenght() * morseTickLength;
 
-    public LengthToMorse(ILengthUpdateListener l, IMorseReceiver... receivers) {
-        lengthUpdateListener = l;
-
+    public LengthToMorse(/*ILengthUpdateListener l,*/ IMorseReceiver... receivers) {
+//        lengthUpdateListener = l;
+        setDitLength(240f);
         this.receivers = receivers;
     }
 
@@ -37,37 +37,23 @@ public class LengthToMorse implements ISoundLengthReceiver {
         if (length < 0.05) return;
 
         //Long or short
-        if (isSound && length <= dit * 2) {
-            send(MorseCharacter.DIT);
-            update(MorseCharacter.DIT, length);
-        } else if (isSound && length > dit * 2) {
-            send(MorseCharacter.DAH);
-            update(MorseCharacter.DAH, length);
-
-            //Different pauses
-        } else if (!isSound && Utils.isApproxEqual(pLong, length)) {
-            send(MorseCharacter.PAUSE_LONG);
-            update(MorseCharacter.PAUSE_LONG, length);
-        } else if (!isSound && Utils.isApproxEqual(pShort, length)) {
-            send(MorseCharacter.PAUSE_SHORT);
-            update(MorseCharacter.PAUSE_SHORT, length);
-        } else if (!isSound && Utils.isApproxEqual(pMini, length)) {
-            send(MorseCharacter.PAUSE_BETWEEN_SYMBOLS);
-            update(MorseCharacter.PAUSE_BETWEEN_SYMBOLS, length);
+        if (isSound) {
+            if (length <= dit * 2) {
+                send(MorseCharacter.DIT);
+            } else {
+                send(MorseCharacter.DAH);
+            }
         } else {
-            send(MorseCharacter.UNKNOWN);
+
+
+            if (length < (pShort + pMini) / 2) {
+                send(MorseCharacter.PAUSE_BETWEEN_SYMBOLS);
+            } else {
+                send(MorseCharacter.PAUSE_SHORT);
+            }
         }
 
-    }
 
-    private void update(MorseCharacter character, float length) {
-        length *= character.getLenght();
-        float dummy = morseTickLength;
-        morseTickLength = Utils.average(length, morseTickLength, morseTickLength, morseTickLength, morseTickLength);
-        if (morseTickLength != dummy) {
-//            lengthUpdateListener.lengthChanged(morseTickLength * 2000f);
-//            setDitLength(morseTickLength * 2000f);
-        }
     }
 
     private void send(MorseCharacter c) {
